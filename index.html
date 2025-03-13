@@ -1,0 +1,212 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="./public/css/index.css">
+</head>
+<body>
+    <header class="menu">
+        <div class="logo-titulo">
+            <img src="./public/img/carrito.png" alt="Logo">
+            <h1>Mi Sitio Web</h1>
+        </div>
+        <nav>
+            <a href="">Productos</a>
+            <a href="#" id="carrito-icono"><img src="./public/img/carrito.png" alt="Carrito" class="contacto-img"></a>
+        </nav>
+    </header>
+    
+    <main>
+        <h2 class="titulo-central">Zapatos</h2>
+
+        <section class="productos" id="productos">
+
+            <div class="tarjeta" data-nombre="zapatos_1" data-precio="1500">
+                <img src="./public/img/zapatos_1.png" alt="zapato 1" class="tarjeta-img">
+                <h3 class="tarjeta-titulo">Zapatos casuales Refill</h3>
+                <p class="tarjeta-precio">$1500</p>
+                <button class="boton-comprar">Comprar</button>
+            </div>
+            <div class="tarjeta" data-nombre="zapatos_2" data-precio="1700">
+                <img src="./public/img/zapatos_2.png" alt="zapato 2" class="tarjeta-img">
+                <h3 class="tarjeta-titulo">Zapatos Casuales Thinner</h3>
+                <p class="tarjeta-precio">$1700</p>
+                <button class="boton-comprar">Comprar</button>
+            </div>
+            <div class="tarjeta" data-nombre="zapatos_3" data-precio="2000">
+                <img src="./public/img/zapatos_3.png" alt="zapato 3" class="tarjeta-img">
+                <h3 class="tarjeta-titulo">Zapatos Casuales Black</h3>
+                <p class="tarjeta-precio">$2000</p>
+                <button class="boton-comprar">Comprar</button>
+            </div>
+            <div class="tarjeta" data-nombre="zapatos_4" data-precio="1800">
+                <img src="./public/img/zapatos_4.png" alt="zapato 4" class="tarjeta-img">
+                <h3 class="tarjeta-titulo">Zapatos Casuales White</h3>
+                <p class="tarjeta-precio">$1800</p>
+                <button class="boton-comprar">Comprar</button>
+            </div>
+            <div class="tarjeta" data-nombre="zapatos_5" data-precio="1900">
+                <img src="./public/img/zapatos_5.png" alt="zapato 5" class="tarjeta-img">
+                <h3 class="tarjeta-titulo">Zapatos Casuales Blue</h3>
+                <p class="tarjeta-precio">$1900</p>
+                <button class="boton-comprar">Comprar</button>
+            </div>
+            <div class="tarjeta" data-nombre="zapatos_6" data-precio="2100">
+                <img src="./public/img/zapatos_6.png" alt="zapato 6" class="tarjeta-img">
+                <h3 class="tarjeta-titulo">Zapatos Casuales Red</h3>
+                <p class="tarjeta-precio">$2100</p>
+                <button class="boton-comprar">Comprar</button>
+            </div>
+            <div class="tarjeta" data-nombre="zapatos_7" data-precio="2200">
+                <img src="./public/img/zapatos_7.png" alt="zapato 7" class="tarjeta-img">
+                <h3 class="tarjeta-titulo">Zapatos Casuales Green</h3>
+                <p class="tarjeta-precio">$2200</p>
+                <button class="boton-comprar">Comprar</button>
+            </div>
+            <div class="tarjeta" data-nombre="zapatos_8" data-precio="2300">
+                <img src="./public/img/zapatos_8.png" alt="zapato 8" class="tarjeta-img">
+                <h3 class="tarjeta-titulo">Zapatos Casuales Yellow</h3>
+                <p class="tarjeta-precio">$2300</p>
+                <button class="boton-comprar">Comprar</button>
+            </div>
+
+        </section>
+    </main>
+    <div id="carrito" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar">&times;</span>
+            <h2>Carrito de Compras</h2>
+            <ul id="lista-carrito"></ul>
+            <p>Total: $<span id="total-carrito">0</span></p>
+            <button id="pagar">Pagar</button>
+            <button id="seguir-comprando">Seguir comprando</button>
+        </div>
+    </div>
+
+    <script>
+        let carrito = [];
+        const botonesComprar = document.querySelectorAll(".boton-comprar");
+        const carritoIcono = document.getElementById("carrito-icono");
+        const modal = document.getElementById("carrito");
+        const cerrarModal = document.querySelector(".cerrar");
+        const listaCarrito = document.getElementById("lista-carrito");
+        const totalCarrito = document.getElementById("total-carrito");
+        const botonSeguirComprando = document.getElementById("seguir-comprando");
+        const botonPagar = document.getElementById("pagar");
+    
+        botonesComprar.forEach(boton => {
+            boton.addEventListener("click", (e) => {
+                const producto = e.target.closest(".tarjeta");
+                const nombre = producto.dataset.nombre;
+                const precio = parseFloat(producto.dataset.precio);
+                agregarAlCarrito(nombre, precio);
+                actualizarCarrito();
+            });
+        });
+    
+        carritoIcono.addEventListener("click", () => {
+            modal.style.display = "block";
+        });
+    
+        cerrarModal.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    
+        botonSeguirComprando.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    
+        botonPagar.addEventListener("click", () => {
+            alert("Pago exitoso");
+            console.log("Pago exitoso");
+            carrito = [];
+            actualizarCarrito();
+            modal.style.display = "none";
+        });
+    
+        window.addEventListener("click", (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    
+        function agregarAlCarrito(nombre, precio) {
+            const productoExistente = carrito.find(item => item.nombre === nombre);
+            if (productoExistente) {
+                productoExistente.cantidad += 1;
+            } else {
+                carrito.push({ nombre, precio, cantidad: 1 });
+            }
+        }
+    
+        function actualizarCarrito() {
+            listaCarrito.innerHTML = "";
+            let total = 0;
+            carrito.forEach((item, index) => {
+                const li = document.createElement("li");
+                li.classList.add("carrito-item");
+
+                // Crear imagen
+                const img = document.createElement("img");
+                img.src = `./public/img/${item.nombre.replace(/\s/g, "_").toLowerCase()}.png`; // Asegúrate de que las imágenes estén correctamente nombradas
+                img.alt = item.nombre;
+
+                // Crear nombre del producto y precio
+                const h4 = document.createElement("h4");
+                h4.textContent = item.nombre;
+
+                const p = document.createElement("p");
+                p.textContent = `$${item.precio} x ${item.cantidad}`;
+
+                // Botones para cambiar cantidad o eliminar
+                const botonMas = document.createElement("button");
+                botonMas.textContent = "+";
+                botonMas.classList.add("boton-cantidad");
+                botonMas.addEventListener("click", () => {
+                    modificarCantidad(index, 1);
+                });
+
+                const botonMenos = document.createElement("button");
+                botonMenos.textContent = "-";
+                botonMenos.classList.add("boton-cantidad");
+                botonMenos.addEventListener("click", () => {
+                    modificarCantidad(index, -1);
+                });
+
+                const botonEliminar = document.createElement("button");
+                botonEliminar.textContent = "Eliminar";
+                botonEliminar.classList.add("boton-eliminar");
+                botonEliminar.addEventListener("click", () => {
+                    eliminarDelCarrito(index);
+                });
+
+                // Agregar todo al carrito
+                li.appendChild(img);
+                li.appendChild(h4);
+                li.appendChild(p);
+                li.appendChild(botonMas);
+                li.appendChild(botonMenos);
+                li.appendChild(botonEliminar);
+
+                listaCarrito.appendChild(li);
+                total += item.precio * item.cantidad;
+            });
+            totalCarrito.textContent = total;
+        }
+
+        function modificarCantidad(index, cambio) {
+            const item = carrito[index];
+            if (item.cantidad + cambio > 0) {
+                item.cantidad += cambio;
+            }
+            actualizarCarrito();
+        }
+    
+        function eliminarDelCarrito(index) {
+            carrito.splice(index, 1);
+            actualizarCarrito();
+        }
+    </script>    
+</body>
+</html>
