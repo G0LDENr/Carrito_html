@@ -19,7 +19,6 @@
     
     <main>
         <h2 class="titulo-central">Zapatos</h2>
-
         <section class="productos" id="productos">
 
             <div class="tarjeta" data-nombre="zapatos_1" data-precio="1500">
@@ -147,19 +146,16 @@
                 const li = document.createElement("li");
                 li.classList.add("carrito-item");
 
-                // Crear imagen
                 const img = document.createElement("img");
                 img.src = `./public/img/${item.nombre.replace(/\s/g, "_").toLowerCase()}.png`; // Asegúrate de que las imágenes estén correctamente nombradas
                 img.alt = item.nombre;
 
-                // Crear nombre del producto y precio
                 const h4 = document.createElement("h4");
                 h4.textContent = item.nombre;
 
                 const p = document.createElement("p");
                 p.textContent = `$${item.precio} x ${item.cantidad}`;
 
-                // Botones para cambiar cantidad o eliminar
                 const botonMas = document.createElement("button");
                 botonMas.textContent = "+";
                 botonMas.classList.add("boton-cantidad");
@@ -181,7 +177,6 @@
                     eliminarDelCarrito(index);
                 });
 
-                // Agregar todo al carrito
                 li.appendChild(img);
                 li.appendChild(h4);
                 li.appendChild(p);

@@ -10,9 +10,9 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #333;
-    padding: 5px 10px;  /* Reducir el padding para un menú más pequeño */
+    padding: 5px 10px;
     color: white;
-    height: 50px;  /* Aumentar un poco la altura para darle más espacio */
+    height: 50px;
 }
 
 .menu .logo-titulo {
@@ -21,9 +21,9 @@ body {
 }
 
 .menu img {
-    width: 25px; /* Reducir aún más el tamaño de la imagen */
-    height: 25px; /* Reducir aún más el tamaño de la imagen */
-    margin-right: 8px; /* Ajustar margen entre el logo y el texto */
+    width: 25px;
+    height: 25px;
+    margin-right: 8px;
 }
 
 nav a {
@@ -34,10 +34,9 @@ nav a {
     padding: 5px 10px;
 }
 
-/* Eliminar el cambio de fondo y el borde redondeado al hacer hover */
 nav a:hover {
-    background-color: transparent;  /* Eliminar el fondo del hover */
-    border-radius: 0;  /* Eliminar los bordes redondeados */
+    background-color: transparent;
+    border-radius: 0;
 }
 
 .contacto-img {
@@ -96,7 +95,6 @@ nav a:hover {
     background-color: #218838;
 }
 
-/* Estilos para el modal del carrito */
 .modal {
     display: none;
     position: fixed;
@@ -182,7 +180,6 @@ nav a:hover {
     background-color: darkred;
 }
 
-/* Estilo para los productos en el carrito */
 .carrito-item {
     display: flex;
     align-items: center;
